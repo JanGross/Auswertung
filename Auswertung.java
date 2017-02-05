@@ -7,12 +7,13 @@ public class Auswertung {
 		
 		/*printf wird hier aufgrund des übersichtlicheren Syntax verwendet.
 		  Hierbei werden jeweils die %f mit den Werten hinter dem Komma ersetzt.
-		  %.2f gibt an das auf 2 KOmma stellen gerundet wird */
+		  %.2f gibt an das auf 2 Komma stellen gerundet wird. %n fügt einen "line-break" bzw. eine neue Zeile ein*/
         System.out.printf("Neues Quadrat. Position: (%.2f|%.2f), Breite: %.2fcm %n", q1Pos[0], q1Pos[1], q1Width);
-        System.out.printf("Gültig: %s %n", quad1.isValid());
-        quad1.printArea();
-        quad1.printQuadrant();
+        System.out.printf("Gültig: %s %n", quad1.isValid()); //isValid gibt einen boolschen wert zurück, dieser wird hier von printfs %s in einen string covertiert
+        quad1.printArea(); //Die methode printArea vom quadrat-objekt wird aufgerufen. Diese gibt die Gesamtgröße des Quadrates aus.
+        quad1.printQuadrant();//Die methode printQuadrant vom quadrat-objekt wird aufgerufen. Diese gibt die Größe der Fläche in Q1 aus.
         
+		//Ein zweites quadrat wird erstellt, alle Schritte von oben ewrden wiederholt.
         Quadrat quad2 = new Quadrat(-3f,2f,14f);
         float[] q2Pos = quad2.getPosition();
         float q2Width = quad2.getWidth();
@@ -42,14 +43,15 @@ class Quadrat {
 	//Checkt ob das Quadrat gültig ist
     boolean check()
     {
-        boolean valid = false;
-        float rad = this.width / 2;
+        boolean valid = false; //Inizial wird davon ausgegangen dass das Quadrat nicht gültig ist
+        float rad = this.width / 2; //Der Radius, also die länge vom Mittelpunkt bis zu den Kanten
         
-        if(this.posX + rad > 0 && this.posY + rad > 0)
+        if(this.posX + rad > 0 && this.posY + rad > 0) //posX + rad ist die position der rechten Kante, posY + rad die der oberen Kante.
         {
-            if(this.posX - rad < 0 && this.posY - rad < 0)
+            if(this.posX - rad < 0 && this.posY - rad < 0) //Hier jeweils die linke und untere Kante
             {
-                valid = true;
+				//Sind die linke und untere Kante kleiner 0 und die obere und rechte Kante größer 0 sind die Flächeninhalte aller Quadranten > 0
+                valid = true;  
             }
         }
 
@@ -85,6 +87,7 @@ class Quadrat {
         System.out.printf("Der Breich in Quadrant 1 is %.2fcm² groß %n", this.q1);
     }
 	
+	//Gibt ein boolschen wert zurück
     public boolean isValid()
     {
         return this.isValid;
